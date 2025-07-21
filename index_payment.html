@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy Plan - JoinCab</title>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <!-- Razorpay Checkout -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #f4f4f4;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    #status {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 id="status">Checking Plan Status...</h2>
+  <button id="loginBtn">Login</button>
+  <button id="buyPlanBtn" style="display:none;">Buy Plan for ₹299</button>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBJKmZTQ-WVuTwGg4Y6DfX952Q6-rF74IU",
+      authDomain: "rtfc-c9d86.firebaseapp.com",
+      projectId: "rtfc-c9d86",
+      storageBucket: "rtfc-c9d86.appspot.com",
+      messagingSenderId: "411651941845",
+      appId: "1:411651941845:web:aeb7c234a316bf5fcb495c",
+      measurementId: "G-VVBXKKNF47"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const statusText = document.getElementById('status');
+    const buyPlanBtn = document.getElementById('buyPlanBtn');
+    const loginBtn = document.getElementById('loginBtn');
+
+    loginBtn.onclick = async () => {
+      const email = prompt("Enter your email:");
+      const password = prompt("Enter your password:");
+      if (!email || !password) return alert("Email and password required.");
+      try {
+        await auth.signInWithEmailAndPassword(email, password);
+        alert("Logged in successfully!");
+        checkPlanStatus();
+      } catch (e) {
+        alert("Login failed: " + e.message);
+      }
+    };
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        checkPlanStatus();
+      } else {
+        statusText.innerText = "Please login to continue.";
+        buyPlanBtn.style.display = 'none';
+      }
+    });
+
+    function formatDateWithSpace(date) {
+      const day = date.getDate();
+      const monthNames = [
+        "january", "february", "march", "april", "may", "june",
+        "july", "august", "september", "october", "november", "december"
+      ];
+      const month = monthNames[date.getMonth()];
+      const year = date.getFullYear();
+      return `${day}${month} ${year}`;
+    }
+
+    function formatDateWithHyphen(date) {
+      const day = date.getDate();
+      const monthNames = [
+        "january", "february", "march", "april", "may", "june",
+        "july", "august", "september", "october", "november", "december"
+      ];
+      const month = monthNames[date.getMonth()];
+      const year = date.getFullYear();
+      return `${day}-${month} ${year}`;
+    }
+
+    async function checkPlanStatus() {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      try {
+        const docRef = db.collection("users").doc(user.uid);
+        const doc = await docRef.get();
+        const data = doc.exists ? doc.data() : {};
+
+        const expiry = data?.plan_expiry;
+        if (!expiry || !Date.parse(expiry) || new Date() > new Date(expiry)) {
+          statusText.innerText = "Your plan is inactive or expired.";
+          buyPlanBtn.style.display = 'inline-block';
+        } else {
+          const expiryDate = formatDateWithHyphen(new Date(expiry));
+          statusText.innerText = `✅ Your plan is active until ${expiryDate}`;
+          buyPlanBtn.style.display = 'none';
+        }
+      } catch (err) {
+        console.error(err);
+        statusText.innerText = "Error checking plan status.";
+      }
+    }
+
+    buyPlanBtn.onclick = () => {
+      const user = auth.currentUser;
+      if (!user) return alert("Please login first.");
+
+      const options = {
+        key: "rzp_live_u7YdrWznujEh03",
+        amount: 100, // ₹299 in paise
+        currency: "INR",
+        name: "JoinCab",
+        description: "Monthly Subscription Plan",
+        prefill: {
+          email: user.email
+        },
+        handler: async function (response) {
+          try {
+            const now = new Date();
+            const expiryDate = new Date(now);
+            expiryDate.setDate(now.getDate() + 30);
+
+            await db.collection("users").doc(user.uid).set({
+              plan_status: "active",
+              plan_expiry: formatDateWithHyphen(expiryDate),
+              purchase_date: formatDateWithSpace(now),
+              amount: "299",
+              planName: "Monthly Subscription"
+            }, { merge: true });
+
+            alert("✅ Payment successful! Plan activated.");
+            checkPlanStatus();
+          } catch (err) {
+            console.error(err);
+            alert("Payment successful, but failed to update status.");
+          }
+        },
+        theme: {
+          color: "#e53935" // red theme
+        }
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+    };
+  </script>
+</body>
+</html>
