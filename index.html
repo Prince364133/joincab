@@ -74,6 +74,18 @@
       border-radius: 8px;
       cursor: pointer;
       transition: 0.3s ease;
+      display: inline-block;
+    }
+
+    #trialBtn {
+      background: linear-gradient(135deg, #ff6b6b, #e53935);
+      color: white;
+      box-shadow: 0 4px 15px rgba(229, 57, 53, 0.4);
+    }
+
+    #trialBtn:hover {
+      background: linear-gradient(135deg, #e53935, #c62828);
+      transform: translateY(-2px);
     }
 
     #buyPlanBtn {
@@ -85,13 +97,44 @@
       background-color: #d32f2f;
     }
 
-    #backBtn {
-      background-color: #ef5350;
+    .trial-badge {
+      display: inline-block;
+      background: #4caf50;
       color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-left: 10px;
     }
 
-    #backBtn:hover {
-      background-color: #c62828;
+    .special-offer {
+      background: linear-gradient(135deg, #fff9c4, #ffe082);
+      border: 3px solid #ffd54f;
+      padding: 20px;
+      border-radius: 12px;
+      margin: 20px auto;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(255, 193, 7, 0.3);
+    }
+
+    .special-offer h3 {
+      color: #f57c00;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .special-offer .price {
+      font-size: 36px;
+      color: #d84315;
+      font-weight: bold;
+    }
+
+    .special-offer .original-price {
+      text-decoration: line-through;
+      color: #757575;
+      font-size: 20px;
+      margin-right: 10px;
     }
 
     #planDetails {
@@ -136,6 +179,105 @@
       background-color: #c62828;
     }
 
+    .info-box {
+      text-align: center;
+      margin: 30px auto 0 auto;
+      padding: 14px 22px;
+      background-color: #ff6666;
+      color: #ffffff;
+      font-size: 17px;
+      font-weight: bold;
+      width: fit-content;
+      border-radius: 6px;
+    }
+
+    .countdown {
+      background: #ffe5e5;
+      padding: 10px;
+      border-radius: 6px;
+      margin: 10px 0;
+      font-weight: bold;
+      color: #c62828;
+      text-align: center;
+    }
+
+    .subscription-box {
+      margin: 30px auto;
+      padding: 20px 30px;
+      max-width: 650px;
+      background: #fff0f0;
+      color: #333;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(255, 0, 0, 0.2);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .subscription-box h2 {
+      color: #d80000;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      background-color: #ffcccc;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .benefits {
+      margin-top: 20px;
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .benefits li {
+      margin-bottom: 10px;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .benefits li::before {
+      content: "✔️";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .profit-box {
+      background-color: #ffe5e5;
+      padding: 15px;
+      margin-top: 25px;
+      border-radius: 8px;
+    }
+
+    .profit-box h3 {
+      color: #b30000;
+      margin-bottom: 10px;
+    }
+
+    .profit-box ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .profit-box li {
+      margin: 6px 0;
+    }
+
+    .profit {
+      color: green;
+      font-weight: bold;
+    }
+
+    .note {
+      margin-top: 10px;
+      font-style: italic;
+      font-weight: 500;
+      color: #444;
+    }
+
     @media (max-width: 600px) {
       header h1 {
         font-size: 18px;
@@ -171,29 +313,71 @@
     <button id="loginSubmit">Submit</button>
   </div>
 
-  <button id="buyPlanBtn" class="btn" style="display:none;">Buy Plan for ₹299</button>
-  
- 
+  <!-- Trial Offer -->
+  <div id="trialOffer" style="display:none;">
+    <div class="special-offer">
+      <h3>🎉 Special Welcome Offer!</h3>
+      <p style="margin: 10px 0;">Start your 7-day trial for just</p>
+      <div>
+        <span class="original-price">₹299</span>
+        <span class="price">₹1</span>
+      </div>
+      <p style="margin: 15px 0; color: #555;">Experience all premium features risk-free!</p>
+      <button id="trialBtn" class="btn">Start ₹1 Trial (7 Days)</button>
+    </div>
+  </div>
+
+  <!-- Regular Plan Purchase -->
+  <div id="regularPlan" style="display:none;">
+    <button id="buyPlanBtn" class="btn">Buy Plan for ₹299</button>
+  </div>
 
   <div id="planDetails"></div>
 
+  <div class="subscription-box">
+    <h2>Subscription Plan</h2>
+    <p class="highlight">Unlock your full earning potential with our premium driver subscription!</p>
+
+    <ul class="benefits">
+      <li>📞 <b>Unlimited Customer Contacts</b> – Connect with as many riders as you want.</li>
+      <li>🧳 <b>Long Route Bookings</b> – Get access to bookings from Delhi to UP, Bihar & more.</li>
+      <li>👥 <b>Guaranteed Customers</b> – Minimum <b>12 customers/month</b>.</li>
+      <li>💼 <b>24/7 Dedicated Driver Support</b> – Resolve your issues anytime.</li>
+      <li>📅 <b>Priority Listing</b> – Your profile is shown to more customers first.</li>
+    </ul>
+
+    <div class="profit-box">
+      <h3>📈 Profit Calculation:</h3>
+      <p>If you complete just 12 trips per month:</p>
+      <ul>
+        <li>Average trip earning: ₹1,200</li>
+        <li>Monthly earning: ₹1,200 × 12 = <b>₹14,400</b></li>
+        <li>Subscription cost: <b>₹299/month</b></li>
+        <li><b>Net Profit:</b> ₹14,400 − ₹299 = <span class="profit">₹14,101</span></li>
+      </ul>
+      <p class="note">💡 You earn over <b>₹14,000/month</b> from just ₹299 — <i>That's a 47x return!</i></p>
+    </div>
+  </div>
+
   <script>
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDHeF3epTsXNt0alKT7bnjMFxeRG1kLgk4",
-  authDomain: "joincab-4baef.firebaseapp.com",
-  projectId: "joincab-4baef",
-  storageBucket: "joincab-4baef.firebasestorage.app",
-  messagingSenderId: "737232303200",
-  appId: "1:737232303200:web:1dd06f1a9bba6f64fb7f05",
-  measurementId: "G-C04YW4L4M3"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyDHeF3epTsXNt0alKT7bnjMFxeRG1kLgk4",
+      authDomain: "joincab-4baef.firebaseapp.com",
+      projectId: "joincab-4baef",
+      storageBucket: "joincab-4baef.firebasestorage.app",
+      messagingSenderId: "737232303200",
+      appId: "1:737232303200:web:1dd06f1a9bba6f64fb7f05",
+      measurementId: "G-C04YW4L4M3"
+    };
 
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
 
     const statusText = document.getElementById('status');
+    const trialOffer = document.getElementById('trialOffer');
+    const regularPlan = document.getElementById('regularPlan');
+    const trialBtn = document.getElementById('trialBtn');
     const buyPlanBtn = document.getElementById('buyPlanBtn');
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
@@ -227,7 +411,8 @@ const firebaseConfig = {
       await auth.signOut();
       alert("Logged out successfully!");
       statusText.innerText = "Please login to continue.";
-      buyPlanBtn.style.display = 'none';
+      trialOffer.style.display = 'none';
+      regularPlan.style.display = 'none';
       loginBtn.style.display = 'inline-block';
       logoutBtn.style.display = 'none';
       planDetails.style.display = 'none';
@@ -243,6 +428,8 @@ const firebaseConfig = {
         loginBtn.style.display = 'inline-block';
         logoutBtn.style.display = 'none';
         planDetails.style.display = 'none';
+        trialOffer.style.display = 'none';
+        regularPlan.style.display = 'none';
         statusText.innerText = "Please login to continue.";
       }
     });
@@ -269,6 +456,44 @@ const firebaseConfig = {
       return `${day}-${month} ${year}`;
     }
 
+    function getDaysRemaining(expiryDate) {
+      const now = new Date();
+      const expiry = new Date(expiryDate);
+      const diffTime = expiry - now;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays;
+    }
+
+    function parseCustomDate(dateStr) {
+      // Parse dates like "22-october 2025" or "22october 2025"
+      const monthNames = [
+        "january", "february", "march", "april", "may", "june",
+        "july", "august", "september", "october", "november", "december"
+      ];
+      
+      const cleaned = dateStr.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').trim();
+      const parts = cleaned.split(/\s+/);
+      
+      let day, month, year;
+      for (let part of parts) {
+        if (!isNaN(part) && part.length <= 2 && !day) {
+          day = parseInt(part);
+        } else if (!isNaN(part) && part.length === 4) {
+          year = parseInt(part);
+        } else {
+          const monthIndex = monthNames.findIndex(m => part.includes(m));
+          if (monthIndex !== -1) {
+            month = monthIndex;
+          }
+        }
+      }
+      
+      if (day && month !== undefined && year) {
+        return new Date(year, month, day);
+      }
+      return null;
+    }
+
     async function checkPlanStatus() {
       const user = auth.currentUser;
       if (!user) return;
@@ -277,46 +502,84 @@ const firebaseConfig = {
         const docRef = db.collection("users").doc(user.uid);
         const doc = await docRef.get();
         const data = doc.exists ? doc.data() : {};
-        const expiry = data?.plan_expiry;
-        const expired = !expiry || !Date.parse(expiry) || new Date() > new Date(expiry);
-
-        if (expired) {
-          statusText.innerText = "Your plan is inactive or expired.";
-          buyPlanBtn.style.display = 'inline-block';
+        
+        const planStatus = data?.plan_status;
+        const planExpiry = data?.plan_expiry;
+        const planName = data?.planName;
+        const amount = data?.amount;
+        
+        const now = new Date();
+        
+        // Check if user has never had any subscription
+        const isNewUser = !planStatus && !planExpiry;
+        
+        if (isNewUser) {
+          // Show trial offer for new users
+          statusText.innerText = "🎁 Welcome! Special trial offer available";
+          trialOffer.style.display = 'block';
+          regularPlan.style.display = 'none';
           planDetails.style.display = 'none';
-        } else {
-          const expiryDate = formatDateWithHyphen(new Date(expiry));
-          statusText.innerText = `✅ Your plan is active until ${expiryDate}`;
-          buyPlanBtn.style.display = 'none';
+          return;
+        }
 
+        // Parse expiry date
+        let expiryDate = parseCustomDate(planExpiry);
+        if (!expiryDate) {
+          expiryDate = new Date(planExpiry);
+        }
+
+        const isActive = now < expiryDate && (planStatus === "active" || planStatus === "trial");
+        
+        // Determine if it's trial or regular plan based on planName or amount
+        const isTrial = (planName && planName.toLowerCase().includes("trial")) || 
+                       (amount && amount === "1");
+
+        if (isActive) {
+          const daysLeft = getDaysRemaining(expiryDate);
+          const badge = isTrial ? '<span class="trial-badge">TRIAL</span>' : '';
+          
+          statusText.innerText = isTrial 
+            ? `🎉 Trial Active (${daysLeft} days remaining)` 
+            : `✅ Your plan is active (${daysLeft} days remaining)`;
+          
           planDetails.innerHTML = `
-            <p><strong>Plan:</strong> ${data.planName || 'N/A'}</p>
-            <p><strong>Status:</strong> ${data.plan_status || 'N/A'}</p>
+            <p><strong>Plan:</strong> ${planName || 'Subscription'} ${badge}</p>
+            <p><strong>Status:</strong> Active</p>
             <p><strong>Purchased On:</strong> ${data.purchase_date || 'N/A'}</p>
-            <p><strong>Amount:</strong> ₹${data.amount || 'N/A'}</p>
-            <p><strong>Expires On:</strong> ${data.plan_expiry || 'N/A'}</p>
+            <p><strong>Amount:</strong> ₹${amount || 'N/A'}</p>
+            <p><strong>Expires On:</strong> ${planExpiry}</p>
             <div class="info-box">
-  <b>GO BACK TO APP</b><br>
-  Plan activated. Try re-login.<br>
-  If issue, it will activate shortly.
-</div>
-
-<style>
-  .info-box {
-    text-align: center;
-    margin: 30px auto 0 auto;
-    padding: 14px 22px;
-    background-color: #ff6666;
-    color: #ffffff;
-    font-size: 17px;
-    font-weight: bold;
-    width: fit-content;
-    border-radius: 6px;
-  }
-</style>
-
+              <b>GO BACK TO APP</b><br>
+              Plan activated. Try re-login.<br>
+              If issue, it will activate shortly.
+            </div>
           `;
           planDetails.style.display = 'block';
+          trialOffer.style.display = 'none';
+          regularPlan.style.display = 'none';
+
+          // Show reminder 1 day before expiry
+          if (daysLeft === 1) {
+            const reminderDiv = document.createElement('div');
+            reminderDiv.className = 'countdown';
+            reminderDiv.innerHTML = '⚠️ Your subscription expires tomorrow! Renew now to avoid interruption.';
+            if (!document.querySelector('.countdown')) {
+              statusText.parentNode.insertBefore(reminderDiv, statusText.nextSibling);
+            }
+          }
+        } else {
+          // Expired or inactive
+          const wasTrialUser = isTrial || (planStatus === "trial");
+          
+          if (wasTrialUser) {
+            statusText.innerText = "⏰ Your trial has expired. Upgrade to continue!";
+          } else {
+            statusText.innerText = "⏰ Your subscription has expired. Renew to continue!";
+          }
+          
+          regularPlan.style.display = 'block';
+          trialOffer.style.display = 'none';
+          planDetails.style.display = 'none';
         }
       } catch (err) {
         console.error(err);
@@ -324,37 +587,20 @@ const firebaseConfig = {
       }
     }
 
-    buyPlanBtn.onclick = () => {
+    // Trial Payment Handler
+    trialBtn.onclick = () => {
       const user = auth.currentUser;
       if (!user) return alert("Please login first.");
 
       const options = {
         key: "rzp_live_hlnBKRW7SSoSCH",
-        amount: 29900, // ₹299 in paise for test
+        amount: 100, // ₹1 in paise
         currency: "INR",
         name: "JoinCab",
-        description: "Monthly Subscription Plan",
+        description: "7-Day Trial Plan",
         prefill: { email: user.email },
         handler: async function (response) {
-          try {
-            const now = new Date();
-            const expiryDate = new Date(now);
-            expiryDate.setDate(now.getDate() + 30);
-
-            await db.collection("users").doc(user.uid).set({
-              plan_status: "active",
-              plan_expiry: formatDateWithHyphen(expiryDate),
-              purchase_date: formatDateWithSpace(now),
-              amount: "299",
-              planName: "Monthly Subscription"
-            }, { merge: true });
-
-            alert("✅ Payment successful! Plan activated.");
-            checkPlanStatus();
-          } catch (err) {
-            console.error(err);
-            alert("Payment successful, but failed to update status.");
-          }
+          await processPayment(user, "trial", "1", 7);
         },
         theme: {
           color: "#e53935"
@@ -364,110 +610,55 @@ const firebaseConfig = {
       const rzp = new Razorpay(options);
       rzp.open();
     };
+
+    // Regular Plan Payment Handler
+    buyPlanBtn.onclick = () => {
+      const user = auth.currentUser;
+      if (!user) return alert("Please login first.");
+
+      const options = {
+        key: "rzp_live_hlnBKRW7SSoSCH",
+        amount: 29900, // ₹299 in paise
+        currency: "INR",
+        name: "JoinCab",
+        description: "Monthly Subscription Plan",
+        prefill: { email: user.email },
+        handler: async function (response) {
+          await processPayment(user, "active", "299", 30);
+        },
+        theme: {
+          color: "#e53935"
+        }
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+    };
+
+    async function processPayment(user, status, amount, days) {
+      try {
+        const now = new Date();
+        const expiryDate = new Date(now);
+        expiryDate.setDate(now.getDate() + days);
+
+        const planName = status === "trial" ? "Trial Plan (7 Days)" : "Monthly Subscription";
+
+        await db.collection("users").doc(user.uid).set({
+          plan_status: status,
+          plan_expiry: formatDateWithHyphen(expiryDate),
+          purchase_date: formatDateWithSpace(now),
+          amount: amount,
+          planName: planName
+        }, { merge: true });
+
+        alert(`✅ Payment successful! ${status === "trial" ? "Trial" : "Plan"} activated.`);
+        checkPlanStatus();
+      } catch (err) {
+        console.error(err);
+        alert("Payment successful, but failed to update status. Please contact support.");
+      }
+    }
   </script>
-  <div class="subscription-box">
-  <h2>Subscription Plan</h2>
-  <p class="highlight">Unlock your full earning potential with our premium driver subscription!</p>
-
-  <ul class="benefits">
-    <li>📞 <b>Unlimited Customer Contacts</b> – Connect with as many riders as you want.</li>
-    <li>🧳 <b>Long Route Bookings</b> – Get access to bookings from Delhi to UP, Bihar & more.</li>
-    <li>👥 <b>Guaranteed Customers</b> – Minimum <b>12 customers/month</b>.</li>
-    <li>💼 <b>24/7 Dedicated Driver Support</b> – Resolve your issues anytime.</li>
-    <li>📅 <b>Priority Listing</b> – Your profile is shown to more customers first.</li>
-  </ul>
-
-  <div class="profit-box">
-    <h3>📈 Profit Calculation:</h3>
-    <p>If you complete just 12 trips per month:</p>
-    <ul>
-      <li>Average trip earning: ₹1,200</li>
-      <li>Monthly earning: ₹1,200 × 12 = <b>₹14,400</b></li>
-      <li>Subscription cost: <b>₹299/month</b></li>
-      <li><b>Net Profit:</b> ₹14,400 − ₹299 = <span class="profit">₹14,101</span></li>
-    </ul>
-    <p class="note">💡 You earn over <b>₹14,000/month</b> from just ₹299 — <i>That's a 47x return!</i></p>
-  </div>
-</div>
-
-<style>
-  .subscription-box {
-    margin: 30px auto;
-    padding: 20px 30px;
-    max-width: 650px;
-    background: #fff0f0;
-    color: #333;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(255, 0, 0, 0.2);
-    font-family: 'Segoe UI', sans-serif;
-  }
-
-  .subscription-box h2 {
-    color: #d80000;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-
-  .highlight {
-    background-color: #ffcccc;
-    padding: 10px;
-    border-radius: 6px;
-    font-weight: bold;
-    text-align: center;
-  }
-
-  .benefits {
-    margin-top: 20px;
-    list-style: none;
-    padding-left: 0;
-  }
-
-  .benefits li {
-    margin-bottom: 10px;
-    padding-left: 25px;
-    position: relative;
-  }
-
-  .benefits li::before {
-    content: "✔️";
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-
-  .profit-box {
-    background-color: #ffe5e5;
-    padding: 15px;
-    margin-top: 25px;
-    border-radius: 8px;
-  }
-
-  .profit-box h3 {
-    color: #b30000;
-    margin-bottom: 10px;
-  }
-
-  .profit-box ul {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  .profit-box li {
-    margin: 6px 0;
-  }
-
-  .profit {
-    color: green;
-    font-weight: bold;
-  }
-
-  .note {
-    margin-top: 10px;
-    font-style: italic;
-    font-weight: 500;
-    color: #444;
-  }
-</style>
 
 </body>
 </html>
