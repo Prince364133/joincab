@@ -794,7 +794,7 @@
         
         if (isNewUser) {
           // Show trial offer for new users
-          statusText.innerText = "🎁 Welcome! Special trial offer available";
+          statusText.innerText = "🎁 Welcome! Special trial offer available just at Rs.1 rupee";
           trialOffer.style.display = 'block';
           regularPlan.style.display = 'none';
           planDetails.style.display = 'none';
@@ -879,7 +879,7 @@
         description: "7-Day Trial Plan",
         prefill: { email: user.email },
         handler: async function (response) {
-          await processPayment(user, "trial", "1", 7);
+          await processPayment(user, "7 days trial activated", "1", 7);
         },
         theme: {
           color: "#e53935"
@@ -920,7 +920,7 @@
         const expiryDate = new Date(now);
         expiryDate.setDate(now.getDate() + days);
 
-        const planName = status === "trial" ? "Trial Plan (7 Days)" : "Monthly Subscription";
+        const planName = status === "7 days trial activated" ? "Trial Plan (7 Days)" : "Monthly Subscription";
 
         await db.collection("users").doc(user.uid).set({
           plan_status: status,
@@ -930,7 +930,7 @@
           planName: planName
         }, { merge: true });
 
-        alert(`✅ Payment successful! ${status === "trial" ? "Trial" : "Plan"} activated.`);
+        alert(`✅ Payment successful! ${status === "7 days trial activated" ? "Trial" : "Plan"} activated.`);
         checkPlanStatus();
       } catch (err) {
         console.error(err);
