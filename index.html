@@ -810,7 +810,7 @@
         const isActive = now < expiryDate && (planStatus === "active" || planStatus === "7 days trial activated");
         
         // Determine if it's trial or regular plan based on planName or amount
-        const isTrial = (planName && planName.toLowerCase().includes("trial")) || 
+        const isTrial = (planName && planName.toLowerCase().includes("7 days trial activated")) || 
                        (amount && amount === "1");
 
         if (isActive) {
