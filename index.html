@@ -850,6 +850,11 @@
           // Expired or inactive
           const wasTrialUser = isTrial || (planStatus === "7 days trial activated");
           
+           // Update Firestore status
+  await docRef.set({
+    plan_status: "expired"
+  }, { merge: true });
+          
           if (wasTrialUser) {
             statusText.innerText = "⏰ Your trial has expired. Upgrade to continue!";
           } else {
