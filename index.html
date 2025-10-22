@@ -807,7 +807,7 @@
           expiryDate = new Date(planExpiry);
         }
 
-        const isActive = now < expiryDate && (planStatus === "active" || planStatus === "trial");
+        const isActive = now < expiryDate && (planStatus === "active" || planStatus === "7 days trial activated");
         
         // Determine if it's trial or regular plan based on planName or amount
         const isTrial = (planName && planName.toLowerCase().includes("trial")) || 
@@ -815,7 +815,7 @@
 
         if (isActive) {
           const daysLeft = getDaysRemaining(expiryDate);
-          const badge = isTrial ? '<span class="trial-badge">TRIAL</span>' : '';
+          const badge = isTrial ? '<span class="trial-badge">7 days trial activated</span>' : '';
           
           statusText.innerText = isTrial 
             ? `🎉 Trial Active (${daysLeft} days remaining)` 
@@ -848,7 +848,7 @@
           }
         } else {
           // Expired or inactive
-          const wasTrialUser = isTrial || (planStatus === "trial");
+          const wasTrialUser = isTrial || (planStatus === "7 days trial activated");
           
           if (wasTrialUser) {
             statusText.innerText = "⏰ Your trial has expired. Upgrade to continue!";
@@ -930,7 +930,7 @@
           planName: planName
         }, { merge: true });
 
-        alert(`✅ Payment successful! ${status === "7 days trial activated" ? "Trial" : "Plan"} activated.`);
+        alert(`✅ Payment successful! ${status === "7 days trial activated" ? "7 days trial activated" : "Plan"} activated.`);
         checkPlanStatus();
       } catch (err) {
         console.error(err);
